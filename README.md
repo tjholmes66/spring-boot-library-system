@@ -14,5 +14,9 @@ Then with my AWS Account use the ECR Services for deployment, and use GitHub Act
 There was an old project I have which is my introduction to React, and is the UI side to this back-end.  
 That UI project would work for the old library-system I created, and it will also work for this new Spring Boot project.
 
-This project will also be using Flyway for Database Migrations.
+This project will also be using Flyway for Database Migrations for the MySQL database that will be used for this project.
+I hope to include a database diagram here to show how the tables work with each other.
+I hope to include some diagrams here to show how this Microservice will work with other Microservices and the AWS API Gateway.
+I hope to use Okta/Auth0 for authentication.
+
 As any new technologies are introduced, I will make sure I highlight them.

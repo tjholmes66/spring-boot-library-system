@@ -7,8 +7,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.tomholmes.products.library.LibraryApplication;
 
-@Transactional
 @SpringBootTest(classes = LibraryApplication.class)
+@Transactional
 public class BaseDaoTest
 {
     public DecimalFormat _df = new DecimalFormat("#.00");

@@ -1,4 +1,4 @@
-package com.tomholmes.products.library.repository;
+package com.tomholmes.products.library.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -10,27 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tomholmes.products.library.model.BookEntity;
 
-public class BookDaoTest extends BaseDaoTest
+public class BookServiceImplTest extends BaseServiceTests
 {
     @Autowired
-    private BookDao bookDao;
+    private BookService bookService;
 
     // List<BookEntity> getBooksByUserId(long userId);
     @Test
-    public void testGetBooksByUser()
+    public void testGetBooksByUserId()
     {
         long userId = 2;
-        List<BookEntity> bookList = bookDao.findByUserId(userId);
+        List<BookEntity> bookList = bookService.getBooksByUserId(userId);
         assertNotNull(bookList);
         assertEquals(3, bookList.size());
     }
 
-    // List<BookEntity> getBooksByUserId(long userId);
+    // List<BookEntity> getBooksByUsername(String username);
     @Test
     public void testGetBooksByUsername()
     {
         String username = "tom@tomholmes.net";
-        List<BookEntity> bookList = bookDao.findByUserName(username);
+        List<BookEntity> bookList = bookService.getBooksByUsername(username);
         assertNotNull(bookList);
         assertEquals(3, bookList.size());
     }
@@ -40,7 +40,7 @@ public class BookDaoTest extends BaseDaoTest
     public void testGetBooksByCategory()
     {
         long categoryId = 4;
-        List<BookEntity> bookList = bookDao.findByCategoryId(categoryId);
+        List<BookEntity> bookList = bookService.getBooksByCategory(categoryId);
         assertNotNull(bookList);
         assertEquals(3, bookList.size());
     }
@@ -50,27 +50,27 @@ public class BookDaoTest extends BaseDaoTest
     public void testGetBooksByAuthor()
     {
         String author = "Tolk";
-        List<BookEntity> bookList = bookDao.findByAuthorIgnoreCaseContaining(author);
+        List<BookEntity> bookList = bookService.getBooksByAuthor(author);
         assertNotNull(bookList);
         assertEquals(3, bookList.size());
     }
 
-    // BookEntity update(BookEntity bookEntity)
+    // BookEntity update(BookEntity bookEntity);
     @Test
     public void testUpdate()
     {
         long bookId = 2;
-        BookEntity book = bookDao.findById(bookId).orElse(null);
+        BookEntity book = bookService.getById(bookId);
         assertNotNull(book);
         assertEquals(bookId, book.getBookId());
     }
 
-    // BookEntity update(BookEntity bookEntity);
+    // public BookEntity renewBookById(long bookId);
     @Test
-    public void testGetById()
+    public void testRenewBookById()
     {
         long bookId = 2;
-        BookEntity book = bookDao.findById(bookId).orElse(null);
+        BookEntity book = bookService.renewBookById(bookId);
         assertNotNull(book);
         assertEquals(bookId, book.getBookId());
     }
@@ -81,21 +81,33 @@ public class BookDaoTest extends BaseDaoTest
     {
         String author = "Tolk";
         Long categoryId = 4L;
-        List<BookEntity> bookList = bookDao.searchBooks(author, categoryId);
+        List<BookEntity> bookList = bookService.searchBooks(author, categoryId);
         assertNotNull(bookList);
         assertEquals(3, bookList.size());
 
         author = "Tolk";
-        categoryId = 4L;
-        bookList = bookDao.searchBooks(author, categoryId);
+        categoryId = 3L;
+        bookList = bookService.searchBooks(author, categoryId);
         assertNotNull(bookList);
-        assertEquals(3, bookList.size());
+        assertEquals(0, bookList.size());
 
         author = "TolkX";
         categoryId = 3L;
-        bookList = bookDao.searchBooks(author, categoryId);
+        bookList = bookService.searchBooks(author, categoryId);
         assertNotNull(bookList);
         assertEquals(0, bookList.size());
+
+        author = "Tolk";
+        categoryId = null;
+        bookList = bookService.searchBooks(author, categoryId);
+        assertNotNull(bookList);
+        assertEquals(3, bookList.size());
+
+        author = null;
+        categoryId = 4L;
+        bookList = bookService.searchBooks(author, categoryId);
+        assertNotNull(bookList);
+        assertEquals(3, bookList.size());
     }
 
 }

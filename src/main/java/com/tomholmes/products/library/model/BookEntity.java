@@ -56,7 +56,7 @@ public class BookEntity implements Serializable
     private LocalDate bookPublished;
 
     @Column(name = "book_author")
-    private String bookAuthor;
+    private String author;
 
     @Column(name = "book_pages")
     private long bookPages;
@@ -121,14 +121,14 @@ public class BookEntity implements Serializable
         this.bookPublished = bookPublished;
     }
 
-    public String getBookAuthor()
+    public String getAuthor()
     {
-        return bookAuthor;
+        return author;
     }
 
-    public void setBookAuthor(String bookAuthor)
+    public void setBookAuthor(String author)
     {
-        this.bookAuthor = bookAuthor;
+        this.author = author;
     }
 
     public long getBookPages()
@@ -204,7 +204,7 @@ public class BookEntity implements Serializable
     @Override
     public int hashCode()
     {
-        return Objects.hash(bookAuthor, bookDescription, bookId, bookName, bookPages, bookPublished, category, editedBy, editedDate, enteredBy, enteredDate, owner);
+        return Objects.hash(author, bookDescription, bookId, bookName, bookPages, bookPublished, category, editedBy, editedDate, enteredBy, enteredDate, owner);
     }
 
     @Override
@@ -217,7 +217,7 @@ public class BookEntity implements Serializable
         if (getClass() != obj.getClass())
             return false;
         BookEntity other = (BookEntity) obj;
-        return Objects.equals(bookAuthor, other.bookAuthor) && Objects.equals(bookDescription, other.bookDescription) && bookId == other.bookId && Objects.equals(bookName, other.bookName)
+        return Objects.equals(author, other.author) && Objects.equals(bookDescription, other.bookDescription) && bookId == other.bookId && Objects.equals(bookName, other.bookName)
             && bookPages == other.bookPages && Objects.equals(bookPublished, other.bookPublished) && Objects.equals(category, other.category) && editedBy == other.editedBy
             && Objects.equals(editedDate, other.editedDate) && enteredBy == other.enteredBy && Objects.equals(enteredDate, other.enteredDate) && Objects.equals(owner, other.owner);
     }
@@ -225,7 +225,7 @@ public class BookEntity implements Serializable
     @Override
     public String toString()
     {
-        return "BookEntity [bookId=" + bookId + ", bookName=" + bookName + ", bookDescription=" + bookDescription + ", bookPublished=" + bookPublished + ", bookAuthor=" + bookAuthor + ", bookPages="
+        return "BookEntity [bookId=" + bookId + ", bookName=" + bookName + ", bookDescription=" + bookDescription + ", bookPublished=" + bookPublished + ", author=" + author + ", bookPages="
             + bookPages + ", category=" + category + ", owner=" + owner + ", enteredBy=" + enteredBy + ", enteredDate=" + enteredDate + ", editedBy=" + editedBy + ", editedDate=" + editedDate + "]";
     }
 

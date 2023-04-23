@@ -1,4 +1,4 @@
-package com.tomholmes.products.library.repository;
+package com.tomholmes.products.library.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -12,10 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.tomholmes.products.library.model.RoleEntity;
 
-public class RoleDaoImplTest extends BaseDaoTest
+public class RoleServiceImplTest extends BaseServiceTests
 {
     @Autowired
-    private RoleDao roleDao;
+    private RoleService roleService;
 
     private long _roleId = 0;
 
@@ -27,7 +27,7 @@ public class RoleDaoImplTest extends BaseDaoTest
     private LocalDateTime _editedDate = LocalDateTime.now();
     private LocalDateTime _enteredDate = LocalDateTime.now();
 
-    private RoleEntity save()
+    private RoleEntity create()
     {
         RoleEntity roleEntity = new RoleEntity();
 
@@ -44,22 +44,22 @@ public class RoleDaoImplTest extends BaseDaoTest
         return roleEntity;
     }
 
-    // RoleEntity save(RoleEntity roleEntity);
+    // RoleEntity create(RoleEntity roleEntity);
     @Test
-    public void testRolesave()
+    public void testRoleCreate()
     {
-        System.out.println("testRolesave: START");
+        System.out.println("testRoleCreate: START");
 
-        RoleEntity roleEntity = save();
+        RoleEntity roleEntity = create();
 
-        roleEntity = roleDao.save(roleEntity);
+        roleEntity = roleService.create(roleEntity);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
         assertEquals(_roleName, roleEntity.getRoleName());
         assertEquals(_roleCode, roleEntity.getRoleCode());
 
-        System.out.println("testRolesave: FINISH");
+        System.out.println("testRoleCreate: FINISH");
     }
 
     // RoleEntity updateRoleEntity(RoleEntity roleEntity);
@@ -68,9 +68,9 @@ public class RoleDaoImplTest extends BaseDaoTest
     {
         System.out.println("testRoleUpdate: START");
 
-        RoleEntity roleEntity = save();
+        RoleEntity roleEntity = create();
 
-        roleEntity = roleDao.save(roleEntity);
+        roleEntity = roleService.create(roleEntity);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
@@ -82,7 +82,7 @@ public class RoleDaoImplTest extends BaseDaoTest
         roleEntity.setRoleName(rolename);
         roleEntity.setRoleCode(rolecode);
 
-        roleEntity = roleDao.save(roleEntity);
+        roleEntity = roleService.update(roleEntity);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
@@ -101,9 +101,9 @@ public class RoleDaoImplTest extends BaseDaoTest
     {
         System.out.println("testGetRoleEntity: START");
 
-        RoleEntity roleEntity = save();
+        RoleEntity roleEntity = create();
 
-        roleEntity = roleDao.save(roleEntity);
+        roleEntity = roleService.create(roleEntity);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
@@ -111,7 +111,7 @@ public class RoleDaoImplTest extends BaseDaoTest
         assertEquals(_roleCode, roleEntity.getRoleCode());
 
         long roleId = roleEntity.getRoleId();
-        roleEntity = roleDao.findById(roleId).orElse(null);
+        roleEntity = roleService.getById(roleId);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
@@ -123,13 +123,13 @@ public class RoleDaoImplTest extends BaseDaoTest
 
     // RoleEntity getRoleEntityByRolename(String rolename);
     @Test
-    public void testGetRoleByRoleCode()
+    public void testGetRoleEntityByRoleCode()
     {
-        System.out.println("testGetRoleByRoleCode: START");
+        System.out.println("testGetRoleEntityByRoleCode: START");
 
-        RoleEntity roleEntity = save();
+        RoleEntity roleEntity = create();
 
-        roleEntity = roleDao.save(roleEntity);
+        roleEntity = roleService.create(roleEntity);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
@@ -137,7 +137,7 @@ public class RoleDaoImplTest extends BaseDaoTest
         assertEquals(_roleCode, roleEntity.getRoleCode());
 
         String roleCode = roleEntity.getRoleCode();
-        roleEntity = roleDao.findRoleByCode(roleCode);
+        roleEntity = roleService.getRoleEntityByCode(roleCode);
 
         assertNotNull(roleEntity);
         assertNotSame(0, roleEntity.getRoleId());
@@ -152,7 +152,7 @@ public class RoleDaoImplTest extends BaseDaoTest
     {
         System.out.println("testGetAllRoleEntityList: START");
 
-        List<RoleEntity> roleList = roleDao.findAll();
+        List<RoleEntity> roleList = roleService.getAllRoleEntityList();
 
         assertNotNull(roleList);
         assertEquals(true, roleList.size() > 0);
